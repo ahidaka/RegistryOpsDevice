@@ -1,0 +1,62 @@
+;
+; RegistryOpsDevice.inf
+;
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = System ; TODO: specify appropriate Class
+ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider    = %ManufacturerName%
+CatalogFile = RegistryOpsDevice.cat
+DriverVer   = ; TODO: set DriverVer in stampinf property pages
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+RegistryOpsDevice.sys  = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName% = Standard,NT$ARCH$.10.0...16299 ; %13% support introduced in build 16299
+
+[Standard.NT$ARCH$.10.0...16299]
+%RegistryOpsDevice.DeviceDesc% = RegistryOpsDevice_Device, Root\RegistryOpsDevice ; TODO: edit hw-id
+
+[RegistryOpsDevice_Device.NT]
+CopyFiles = File_Copy
+
+[File_Copy]
+RegistryOpsDevice.sys
+
+;-------------- Service installation
+[RegistryOpsDevice_Device.NT.Services]
+AddService = RegistryOpsDevice,%SPSVCINST_ASSOCSERVICE%, RegistryOpsDevice_Service_Inst
+
+; -------------- RegistryOpsDevice driver install sections
+[RegistryOpsDevice_Service_Inst]
+DisplayName    = %RegistryOpsDevice.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %13%\RegistryOpsDevice.sys
+
+[RegistryOpsDevice_Device.NT.Wdf]
+KmdfService = RegistryOpsDevice, RegistryOpsDevice_wdfsect
+
+[RegistryOpsDevice_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE = 0x00000002
+ManufacturerName = "Device Drivers, Ltd" ;TODO: Replace with your manufacturer name
+DiskName = "RegistryOpsDevice Installation Disk"
+RegistryOpsDevice.DeviceDesc = "RegistryOpsDevice Device"
+RegistryOpsDevice.SVCDESC = "RegistryOpsDevice Service"
