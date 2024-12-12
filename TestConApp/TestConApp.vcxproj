@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{8c0096d6-3950-4085-9bee-2d5900e4854a}</ProjectGuid>
-    <RootNamespace>RegistryTestApp</RootNamespace>
+    <ProjectGuid>{4537f2c3-7919-4a66-88c4-daeda3ffee08}</ProjectGuid>
+    <RootNamespace>TestConApp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\RegistiryOpsDevice</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\RegistoryOpsDevice</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,10 +128,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="RegistryTestApp.cpp" />
+    <ClCompile Include="TestConApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\RegistryOpsDevice\DeviceControlOps.h" />
+    <ClInclude Include="DeviceControlOps.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

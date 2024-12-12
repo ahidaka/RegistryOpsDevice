@@ -1,19 +1,4 @@
 #pragma once
-/*++
-
-Module Name:
-
-    queue.h
-
-Abstract:
-
-    This file contains the queue definitions.
-
-Environment:
-
-    Kernel-mode Driver Framework
-
---*/
 
 EXTERN_C_START
 
@@ -39,5 +24,14 @@ RegistryOpsDeviceQueueInitialize(
 //
 EVT_WDF_IO_QUEUE_IO_DEVICE_CONTROL RegistryOpsDeviceEvtIoDeviceControl;
 EVT_WDF_IO_QUEUE_IO_STOP RegistryOpsDeviceEvtIoStop;
+
+
+NTSTATUS RegCreateComplicatedPot();
+
+NTSTATUS RegAppendToComplicatedPot(WCHAR* data, size_t length);
+
+NTSTATUS RegReadComplicatedPot(WCHAR* outBuffer, size_t bufferSize);
+
+NTSTATUS RegClearComplicatedPot();
 
 EXTERN_C_END

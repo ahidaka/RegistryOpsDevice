@@ -42,7 +42,7 @@
     <ClInclude Include="Trace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RegistryOps.h">
+    <ClInclude Include="DeviceControlOps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,7 +56,7 @@
     <ClCompile Include="Queue.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RegistryOps.c">
+    <ClCompile Include="ComplicatedPot.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

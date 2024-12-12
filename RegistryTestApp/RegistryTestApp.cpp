@@ -7,11 +7,9 @@
 #include <iostream>
 #include <tchar.h>
 
-#define IOCTL_REG_CREATE CTL_CODE(FILE_DEVICE_UNKNOWN, 0x800, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_REG_APPEND CTL_CODE(FILE_DEVICE_UNKNOWN, 0x801, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_REG_READ   CTL_CODE(FILE_DEVICE_UNKNOWN, 0x802, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define IOCTL_REG_CLEAR  CTL_CODE(FILE_DEVICE_UNKNOWN, 0x803, METHOD_BUFFERED, FILE_ANY_ACCESS)
+#include "DeviceControlOps.h"
 
+//
 void SendIoControl(HANDLE hDevice, DWORD controlCode, LPVOID inBuffer, DWORD inBufferSize, LPVOID outBuffer, DWORD outBufferSize) {
     DWORD bytesReturned = 0;
     if (DeviceIoControl(hDevice, controlCode, inBuffer, inBufferSize, outBuffer, outBufferSize, &bytesReturned, NULL)) {
@@ -24,7 +22,7 @@ void SendIoControl(HANDLE hDevice, DWORD controlCode, LPVOID inBuffer, DWORD inB
 
 int main() {
     HANDLE hDevice = CreateFile(
-        _T("\\\\.\\RegistryOpsDevice"),
+        _T("\\\\.\\RegOpDev"),
         GENERIC_READ | GENERIC_WRITE,
         0,
         NULL,
@@ -42,15 +40,15 @@ int main() {
 
     // Create registry key
     std::cout << "Creating registry key..." << std::endl;
-    SendIoControl(hDevice, IOCTL_REG_CREATE, NULL, 0, NULL, 0);
+    SendIoControl(hDevice, IOCTL_REG_DISABLE, NULL, 0, NULL, 0);
 
     // Append data to registry key
     std::cout << "Appending data to registry key..." << std::endl;
-    SendIoControl(hDevice, IOCTL_REG_APPEND, appendData, sizeof(appendData), NULL, 0);
+    SendIoControl(hDevice, IOCTL_REG_ADD, appendData, sizeof(appendData), NULL, 0);
 
     // Read data from registry key
     std::cout << "Reading data from registry key..." << std::endl;
-    SendIoControl(hDevice, IOCTL_REG_READ, NULL, 0, readBuffer, sizeof(readBuffer));
+    SendIoControl(hDevice, IOCTL_REG_LIST, NULL, 0, readBuffer, sizeof(readBuffer));
     std::wcout << L"Data read: " << readBuffer << std::endl;
 
     // Clear registry key
