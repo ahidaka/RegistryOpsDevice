@@ -1,18 +1,4 @@
-/*++
-
-Module Name:
-
-    driver.h
-
-Abstract:
-
-    This file contains the driver definitions.
-
-Environment:
-
-    Kernel-mode Driver Framework
-
---*/
+#pragma once
 
 #include <ntddk.h>
 #include <wdf.h>
@@ -23,6 +9,9 @@ Environment:
 #include "trace.h"
 
 EXTERN_C_START
+
+#define DEVICE_NAME L"\\Device\\RegOpDev"
+#define SYMBOLIC_LINK_NAME L"\\DosDevices\\RegOpDev"
 
 //
 // WDFDRIVER Events
